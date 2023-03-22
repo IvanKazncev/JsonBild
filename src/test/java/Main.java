@@ -45,7 +45,7 @@ public class Main {
             assertThat(x.getNew_id()).as("Новая проблема").isNotEqualTo(0);
         });
         System.out.println(idNew3);
-        System.out.print(idNew4);
+        System.out.print(idNew4);System.out.print(idNew4);
 
     }
 
