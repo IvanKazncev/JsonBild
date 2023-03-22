@@ -1,37 +1,57 @@
   package org.example;
   import com.fasterxml.jackson.core.JsonProcessingException;
   import com.fasterxml.jackson.databind.ObjectMapper;
+  import org.junit.jupiter.api.Assertions;
   import java.util.ArrayList;
   import java.util.Arrays;
   import java.util.List;
   import java.util.Random;
 
-public class Main {
-    public static void main(String[] args) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        Random random = new Random();
-        //
-        //InnerClass innerClass = new InnerClass();
-       Main main = new Main();
-        final int min = 00001;
-        int max = 99999;
-        int rn = (int) (Math.random() * ++max) +min;
-        ArrayList<Integer> myList = new ArrayList<>(Arrays.asList(10,15,20,30));
-        ArrayList<InnerClass> innerClasses = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
 
-            innerClasses.add(new InnerClass(random.nextLong(9999999999L),0,main.getRandomElement(myList)));
+  public class Main {
 
-        }
-        Model model = new Model(rn,"Ivan","Kazancev",innerClasses,5);
-        String result = objectMapper.writeValueAsString(model);
-        System.out.println(result);
+      public static void main(String[] args) throws JsonProcessingException {
+          ObjectMapper objectMapper = new ObjectMapper();
+          Random random = new Random();
+          Main main = new Main();
+          NewClass newClass = new NewClass();
 
-    }
-    public int getRandomElement(List<Integer> list)
-    {
-        Random rand = new Random();
-        return list.get(rand.nextInt(list.size()));
-    }
+          final int min = 00001;
+          int max = 99999;
+          int rn = (int) (Math.random() * ++max) + min;
 
-}
+          ArrayList<Integer> myList = new ArrayList<>(Arrays.asList(10, 15, 20, 30));
+          ArrayList<InnerClass> innerClasses = new ArrayList<>();
+
+          for (int i = 0; i < 3; i++) {
+
+              innerClasses.add(new InnerClass(random.nextLong(9999999999L), i, main.getRandomElement(myList)));
+          }
+
+          Model model = new Model(rn, "Ivan", "Kazancev", innerClasses, 5);
+          String result = objectMapper.writeValueAsString(model);
+          System.out.println(result);
+         // Long idNew = innerClasses.stream().filter(x -> x.getStatus().equals(0)).map(InnerClass::getNew_id).findFirst().orElse(0L);
+         // Long idNew2 = innerClasses.stream().filter(x -> x.getStatus().equals(1)).map(InnerClass::getNew_id).findFirst().orElse(0L);
+
+          Long idNew3 = newClass.getNewId(innerClasses,0);
+          Long idNew4 = newClass.getNewId(innerClasses,1);
+          Assertions.assertTrue(idNew3!= idNew4);
+          System.out.println(idNew3);
+          System.out.print(idNew4);
+
+      }
+
+
+      public int getRandomElement(List<Integer> list) {
+          Random rand = new Random();
+          return list.get(rand.nextInt(list.size()));
+      }
+
+  }
+
+
+
+
+
+
